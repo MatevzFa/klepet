@@ -4,7 +4,6 @@ function divElementEnostavniTekst(sporocilo) {
   var slikaPatt = /(https|http):\/\/.+\.(jpg|png|gif)/;
   var jeSlika = slikaPatt.test(sporocilo);
   
-  var jeSlika = sporocilo.indexOf('') > -1;
   if (jeSmesko || jeSlika) {
     sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
     sporocilo = dodajSlike(sporocilo);
