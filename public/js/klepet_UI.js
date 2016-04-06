@@ -1,3 +1,4 @@
+/* global $ */
 function divElementEnostavniTekst(sporocilo) {
   var jeSmesko = sporocilo.indexOf('http://sandbox.lavbic.net/teaching/OIS/gradivo/') > -1;
   if (jeSmesko) {
@@ -98,6 +99,12 @@ $(document).ready(function() {
     $('#seznam-uporabnikov').empty();
     for (var i=0; i < uporabniki.length; i++) {
       $('#seznam-uporabnikov').append(divElementEnostavniTekst(uporabniki[i]));
+      $('#seznam-uporabnikov div').click(function() {
+        
+        var tmpIme = $('#seznam-uporabnikov div').text();
+        $('#poslji-sporocilo').val('/zasebno "' + tmpIme + '"');
+        $('#poslji-sporocilo').focus();
+      });
     }
   });
 
