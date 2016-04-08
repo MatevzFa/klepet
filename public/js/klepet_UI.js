@@ -39,7 +39,7 @@ function procesirajVnosUporabnika(klepetApp, socket) {
 }
 
 var socket = io.connect();
-trenutniVzdevek = "", trenutniKanal = "";
+var trenutniVzdevek = "", trenutniKanal = "";
 
 var vulgarneBesede = [];
 $.get('/swearWords.txt', function(podatki) {
