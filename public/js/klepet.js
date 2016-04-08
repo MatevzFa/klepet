@@ -57,30 +57,13 @@ Klepet.prototype.procesirajUkaz = function(ukaz) {
         }
       }
 
-      if (!obstaja) {
+      if (!dregljajZa) {
         sporocilo = 'Neznan ukaz.';
       } else {
         sporocilo = 'Dregljaj za ' + dregljajZa;
         this.socket.emit('dregljaj', {vzdevek: dregljajZa});
       }
-
-
-      // this.socket.once('uporabniki', function(uporabniki) {
-      //   var obstaja = false;
-      //   for (var i=0; i < uporabniki.length; i++) {
-      //     console.log("'%s' ? '%s'", dregljajZa, uporabniki[i]);
-      //     if (dregljajZa == uporabniki[i]) {
-      //       obstaja = true;
-      //       this.socket.emit('dregljaj', {vzdevek: dregljajZa});
-      //       break;
-      //     }
-      //   }
-      //   if (!obstaja) {
-      //     return 'Neznan ukaz.';
-      //   } else {
-      //     return ('Dregljaj za ' + dregljajZa);
-      //   }
-      // });
+      
       break;
     default:
       sporocilo = 'Neznan ukaz.';
