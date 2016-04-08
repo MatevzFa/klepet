@@ -46,16 +46,6 @@ Klepet.prototype.procesirajUkaz = function(ukaz) {
     case 'dregljaj':
       besede.shift();
       var dregljajZa = besede.join(' ');
-      var obstaja = false;
-
-      var imena = $("#seznam-uporabnikov div");
-
-      for (var i = 0; i < imena.length; i++) {
-        if(imena[i].innerHTML == dregljajZa) {
-          obstaja = true;
-          break;
-        }
-      }
 
       if (!dregljajZa) {
         sporocilo = 'Neznan ukaz.';
@@ -63,7 +53,6 @@ Klepet.prototype.procesirajUkaz = function(ukaz) {
         sporocilo = 'Dregljaj za ' + dregljajZa;
         this.socket.emit('dregljaj', {vzdevek: dregljajZa});
       }
-      
       break;
     default:
       sporocilo = 'Neznan ukaz.';
