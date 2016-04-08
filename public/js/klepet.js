@@ -61,7 +61,7 @@ Klepet.prototype.procesirajUkaz = function(ukaz) {
         sporocilo = 'Neznan ukaz.';
       } else {
         sporocilo = 'Dregljaj za ' + dregljajZa;
-        this.socket.emit('dregljaj', {vzdevek: dregljajZa});
+        this.socket.emit('dregljaj', {vzdevek: dregljajZa, posiljatelj: this.socket.id});
       }
 
 
