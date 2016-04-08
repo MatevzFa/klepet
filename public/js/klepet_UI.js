@@ -144,10 +144,5 @@ function dodajVideo(vhodnoBesedilo) {
         vhodnoBesedilo += '<br><iframe src="https://www.youtube.com/embed/'+ wordArr[i].replace("https://www.youtube.com/watch?v=", "") +'" allowfullscreen></iframe>';
     }
   }
-  // var newMsg = '';
-  // for (var i = 0; i < wordArr.length; i++) {
-  //   newMsg += wordArr[i] + ' ';
-  // }
-  // newMsg = newMsg.substr(0, newMsg.length - 1);
   return vhodnoBesedilo;
 }
