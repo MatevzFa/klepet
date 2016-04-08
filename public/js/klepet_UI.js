@@ -1,7 +1,12 @@
 function divElementEnostavniTekst(sporocilo) {
   var jeSmesko = sporocilo.indexOf('http://sandbox.lavbic.net/teaching/OIS/gradivo/') > -1;
-  if (jeSmesko) {
+
+  var slikaPatt = /(https|http):\/\/.+\.(jpg|png|gif)/;
+  var jeSlika = slikaPatt.test(sporocilo);
+
+  if (jeSmesko || jeSlika) {
     sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
+    sporocilo = dodajSlike(sporocilo);
     return $('<div style="font-weight: bold"></div>').html(sporocilo);
   } else {
     return $('<div style="font-weight: bold;"></div>').text(sporocilo);
@@ -15,6 +20,7 @@ function divElementHtmlTekst(sporocilo) {
 function procesirajVnosUporabnika(klepetApp, socket) {
   var sporocilo = $('#poslji-sporocilo').val();
   sporocilo = dodajSmeske(sporocilo);
+
   var sistemskoSporocilo;
 
   if (sporocilo.charAt(0) == '/') {
@@ -77,7 +83,7 @@ $(document).ready(function() {
     var novElement = divElementEnostavniTekst(sporocilo.besedilo);
     $('#sporocila').append(novElement);
   });
-  
+
   socket.on('kanali', function(kanali) {
     $('#seznam-kanalov').empty();
 
@@ -101,6 +107,16 @@ $(document).ready(function() {
     }
   });
 
+  socket.on('dregljaj', function(dregljaj) {
+    if (dregljaj) {
+      $("#vsebina").jrumble();
+      $("#vsebina").trigger('startRumble');
+      setTimeout(function() {
+        $("#vsebina").trigger('stopRumble');
+      }, 1500);
+    }
+  });
+
   setInterval(function() {
     socket.emit('kanali');
     socket.emit('uporabniki', {kanal: trenutniKanal});
@@ -112,8 +128,8 @@ $(document).ready(function() {
     procesirajVnosUporabnika(klepetApp, socket);
     return false;
   });
-  
-  
+
+
 });
 
 function dodajSmeske(vhodnoBesedilo) {
@@ -129,5 +145,19 @@ function dodajSmeske(vhodnoBesedilo) {
       "<img src='http://sandbox.lavbic.net/teaching/OIS/gradivo/" +
       preslikovalnaTabela[smesko] + "' />");
   }
+  return vhodnoBesedilo;
+}
+
+function dodajSlike(vhodnoBesedilo) {
+
+  var wordArr = vhodnoBesedilo.split(" ");
+  for(var i = 0; i < wordArr.length; i++) {
+    if (wordArr[i].substr(0, 7) == 'http://' || wordArr[i].substr(0, 8) == 'https://') {
+      if (wordArr[i].substr(wordArr[i].length - 4, 4) == '.png' || wordArr[i].substr(wordArr[i].length - 4, 4) == '.jpg' || wordArr[i].substr(wordArr[i].length - 4, 4) == '.gif') {
+        vhodnoBesedilo += '<br><img src="' + wordArr[i] + '" style="width: 200px; margin-left: 20px"><br>';
+      }
+    }
+  }
+
   return vhodnoBesedilo;
 }
