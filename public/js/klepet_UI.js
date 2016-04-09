@@ -106,8 +106,9 @@ $(document).ready(function() {
   socket.on('uporabniki', function(uporabniki) {
     $('#seznam-uporabnikov').empty();
     for (var i=0; i < uporabniki.length; i++) {
-      $('#seznam-uporabnikov').append(divElementEnostavniTekst(uporabniki[i])).click(function(e) {
-        
+      $('#seznam-uporabnikov').append(divElementEnostavniTekst(uporabniki[i]));
+      
+      $('#seznam-uporabnikov div').click(function(e) {  
         var tmpIme = $(e.target).text();
         $('#poslji-sporocilo').val('/zasebno "' + tmpIme + '"');
         $('#poslji-sporocilo').focus();
