@@ -144,7 +144,7 @@ function dodajSlike(vhodnoBesedilo) {
   for(var i = 0; i < wordArr.length; i++) {
     if (wordArr[i].substr(0, 7) == 'http://' || wordArr[i].substr(0, 8) == 'https://') {
       if (wordArr[i].substr(wordArr[i].length - 4, 4) == '.png' || wordArr[i].substr(wordArr[i].length - 4, 4) == '.jpg' || wordArr[i].substr(wordArr[i].length - 4, 4) == '.gif') {
-        vhodnoBesedilo += '<br><img src="' + wordArr[i] + '" style="width: 200px; margin-left: 20px"><br>';
+        vhodnoBesedilo += '<br><img src="' + wordArr[i] + '" style="width: 200px; margin-left: 20px">';
       }
     }
   }
