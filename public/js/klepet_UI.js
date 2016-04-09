@@ -1,7 +1,6 @@
 function divElementEnostavniTekst(sporocilo) {
   var jeSmesko = sporocilo.indexOf('http://sandbox.lavbic.net/teaching/OIS/gradivo/') > -1;
 
-  
   var slikaPatt = /(https|http):\/\/.+\.(jpg|png|gif)/;
   var videoPatt = /https:\/\/www\.youtube\.com\/watch\?v=/;
   var jeSlika = slikaPatt.test(sporocilo);
