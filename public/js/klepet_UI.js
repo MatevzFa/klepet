@@ -1,12 +1,8 @@
 function divElementEnostavniTekst(sporocilo) {
   var jeSmesko = sporocilo.indexOf('http://sandbox.lavbic.net/teaching/OIS/gradivo/') > -1;
 
-  var slikaPatt = /(https|http):\/\/.+\.(jpg|png|gif)/;
-  var jeSlika = slikaPatt.test(sporocilo);
-
-  if (jeSmesko || jeSlika) {
+  if (jeSmesko) {
     sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
-    sporocilo = dodajSlike(sporocilo);
     return $('<div style="font-weight: bold"></div>').html(sporocilo);
   } else {
     return $('<div style="font-weight: bold;"></div>').text(sporocilo);
@@ -149,18 +145,3 @@ function dodajSmeske(vhodnoBesedilo) {
   }
   return vhodnoBesedilo;
 }
-
-function dodajSlike(vhodnoBesedilo) {
-
-  var wordArr = vhodnoBesedilo.split(" ");
-  for(var i = 0; i < wordArr.length; i++) {
-    if (wordArr[i].substr(0, 7) == 'http://' || wordArr[i].substr(0, 8) == 'https://') {
-      if (wordArr[i].substr(wordArr[i].length - 4, 4) == '.png' || wordArr[i].substr(wordArr[i].length - 4, 4) == '.jpg' || wordArr[i].substr(wordArr[i].length - 4, 4) == '.gif') {
-        vhodnoBesedilo += '<br><img src="' + wordArr[i] + '" style="width: 200px; margin-left: 20px"><br>';
-      }
-    }
-  }
-
-  return vhodnoBesedilo;
-}
-
