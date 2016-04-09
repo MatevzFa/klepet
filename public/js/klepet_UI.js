@@ -98,12 +98,12 @@ $(document).ready(function() {
     $('#seznam-uporabnikov').empty();
     for (var i=0; i < uporabniki.length; i++) {
       $('#seznam-uporabnikov').append(divElementEnostavniTekst(uporabniki[i]));
-      $('#seznam-uporabnikov div').click(function() {
-        
-        var tmpIme = $('#seznam-uporabnikov div').text();
+      
+      $('#seznam-uporabnikov div').click(function(e) {  
+        var tmpIme = $(e.target).text();
         $('#poslji-sporocilo').val('/zasebno "' + tmpIme + '"');
         $('#poslji-sporocilo').focus();
-      });
+      });;
     }
   });
 
