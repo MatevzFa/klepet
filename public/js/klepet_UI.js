@@ -163,3 +163,4 @@ function dodajSlike(vhodnoBesedilo) {
 
   return vhodnoBesedilo;
 }
+
