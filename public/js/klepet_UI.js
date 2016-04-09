@@ -1,5 +1,6 @@
 function divElementEnostavniTekst(sporocilo) {
   var jeSmesko = sporocilo.indexOf('http://sandbox.lavbic.net/teaching/OIS/gradivo/') > -1;
+// <<<<<<< HEAD
   
   var slikaPatt = /(https|http):\/\/.+\.(jpg|png|gif)/;
   var videoPatt = /https:\/\/www\.youtube\.com\/watch\?v=/;
@@ -85,7 +86,7 @@ $(document).ready(function() {
     var novElement = divElementEnostavniTekst(sporocilo.besedilo);
     $('#sporocila').append(novElement);
   });
-  
+
   socket.on('kanali', function(kanali) {
     $('#seznam-kanalov').empty();
 
@@ -105,12 +106,23 @@ $(document).ready(function() {
   socket.on('uporabniki', function(uporabniki) {
     $('#seznam-uporabnikov').empty();
     for (var i=0; i < uporabniki.length; i++) {
-      $('#seznam-uporabnikov').append(divElementEnostavniTekst(uporabniki[i]));
-      $('#seznam-uporabnikov div').click(function() {
+      $('#seznam-uporabnikov').append(divElementEnostavniTekst(uporabniki[i])).click(function(e) {
         
-        var tmpIme = $('#seznam-uporabnikov div').text();
+        var tmpIme = $(e.target).text();
         $('#poslji-sporocilo').val('/zasebno "' + tmpIme + '"');
         $('#poslji-sporocilo').focus();
+      });;
+    }
+  });
+
+  socket.on('dregljaj', function(dregljaj) {
+    if (dregljaj) {
+      jQuery(function() {
+        $("#vsebina").jrumble();
+        $("#vsebina").trigger('startRumble');
+        setTimeout(function() {
+          $("#vsebina").trigger('stopRumble');
+        }, 1500);
       });
     }
   });
@@ -126,8 +138,8 @@ $(document).ready(function() {
     procesirajVnosUporabnika(klepetApp, socket);
     return false;
   });
-  
-  
+
+
 });
 
 function dodajSmeske(vhodnoBesedilo) {
@@ -147,7 +159,6 @@ function dodajSmeske(vhodnoBesedilo) {
 }
 
 function dodajSlike(vhodnoBesedilo) {
-  
   var wordArr = vhodnoBesedilo.split(" ");
   for(var i = 0; i < wordArr.length; i++) {
     if (wordArr[i].substr(0, 7) == 'http://' || wordArr[i].substr(0, 8) == 'https://') {
@@ -159,6 +170,7 @@ function dodajSlike(vhodnoBesedilo) {
   
   return vhodnoBesedilo;
 }
+
 function dodajVideo(vhodnoBesedilo) {
   
   var wordArr = vhodnoBesedilo.split(" ");
@@ -170,3 +182,5 @@ function dodajVideo(vhodnoBesedilo) {
   }
   return vhodnoBesedilo;
 }
+
+// >>>>>>> dregljaj
